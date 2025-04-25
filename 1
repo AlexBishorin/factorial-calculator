@@ -1,0 +1,47 @@
+import math
+
+def calculate_factorial(n):
+    """Вычисляет факториал числа n.
+
+    Args:
+        n: Положительное целое число.
+
+    Returns:
+        Факториал числа n, или None, если введены некорректные данные.
+    """
+    if not isinstance(n, int):
+        return None  # Нечисловые данные
+    if n < 0:
+        return None  # Отрицательное число
+    try:
+        return math.factorial(n)
+    except OverflowError:
+        return "Результат слишком большой для представления" # Обработка переполнения (если нужно)
+
+def main():
+    """Основная функция программы."""
+    while True:
+        try:
+            user_input = input("Введите положительное целое число: ")
+            number = int(user_input)
+            factorial = calculate_factorial(number)
+
+            if factorial is None:
+                if not user_input.isdigit() and '-' not in user_input:
+                   print("Ошибка: Введите целое число.")
+                else:
+                   print("Ошибка: Введите положительное число.")
+            elif factorial == "Результат слишком большой для представления":
+                print("Результат слишком большой для представления.")
+            else:
+                print(f"Факториал числа {number} равен {factorial}")
+            break  # Выход из цикла после успешного вычисления
+        except ValueError:
+            print("Ошибка: Введите целое число.")
+        except Exception as e:  # Обработка других возможных ошибок
+            print(f"Произошла непредвиденная ошибка: {e}")
+            break
+
+
+if __name__ == "__main__":
+    main()
